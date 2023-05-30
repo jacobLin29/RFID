@@ -1,1 +1,81 @@
 # RFID
+
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Webduino Blockly App</title>
+  <script src="https://blocklypro.webduino.io/node_modules/jquery/dist/jquery.min.js?rev=2f6b11a7e914718e0290410e85366fe9"></script>
+  <script src="https://blocklypro.webduino.io/dist/lib/webduino-all-0.4.20.min.js?rev=4426739c00d85325cb2d3d701fa50666"></script>
+  <script src="https://blocklypro.webduino.io/dist/webduino-blockly.min.js?rev=6e074ceb23d12d1f7cf2ec95cd5a4150"></script>
+  <script src="https://blocklypro.webduino.io/dist/lib/firebase.min.js?rev=c0bfd493efd477d098a4ae9e92b13880"></script>
+  <script src="https://blocklypro.webduino.io/dist/lib/runtime.min.js?rev=683a69503433786202911b4d9f766100"></script>
+
+
+<title>NFC Tags快捷應用(網頁設計)</title>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.5rem;
+    }
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1.5rem;
+        margin: 10px;
+    }
+    button:hover {
+        background-color: #3e8e41;
+    }
+</style>
+<script>
+    function toggleLight(status) {
+        if (status === 'on') {
+            led.on();
+        } else if (status === 'off') {
+            led.off();
+        }
+    }
+</script>
+</head>
+
+<body>
+	<h1>Welcome!</h1>
+	<p>Hello <span id="name"></span></p>
+	<button onclick="led.on()">開燈</button>
+	<button onclick="led.off()">關燈</button>
+	<script>
+		// Get the URL parameters
+		const urlParams = new URLSearchParams(window.location.search);
+		const name = urlParams.get('name');
+		const light = urlParams.get('light');
+		// Display the name
+		document.getElementById('name').textContent = name;
+		// Toggle the light based on the 'light' parameter
+		toggleLight(light);
+	</script>
+</body>
+
+<script>
+var led;
+
+
+
+
+boardReady({board: 'Smart', device: 'YgxM2', transport: 'mqtt', multi: true}, function (board) {
+  board.samplingInterval = 50;
+  led = getLed(board, 5);
+  toggleLight(light);
+});
+
+</script>
